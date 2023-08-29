@@ -1,110 +1,155 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ========= Color variables =========== */
+$gray-light: rgb(221, 217, 217);
+$black: black;
+$pink: rgb(255, 0, 89);
+$pink-light: pink;
+$white: white;
 
-code {
-  /* font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace; */
-}
+/* ========= Other variables =========== */
+$card-height: 250px;
+$card-border-radius: 5px;
 
-h2,
-button {
-  color: white;
-  font-size: 0.9em;
-  margin: 0;
-}
+/* ========= General settings and resets =========== */
 
 :root {
-  --card-height: 150px;
-  font-size: 16px;
+  font-size: 20px;
+  font-family: Verdana, sans-serif;
 }
 
-.cards-container {
-  margin: 20px auto;
-  max-width: 700px;
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $gray-light;
+}
+
+/* ========= Scroll & Cards =========== */
+
+// container with all cards
+.scroll-container {
+  margin: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
+  max-width: 1440px;
 }
 
+// single card item
 .card {
   position: relative;
-  max-height: var(--card-height);
-}
+  max-height: $card-height;
+  width: 100%;
+  max-width: 375px;
 
-.card__img {
-  width: 200px;
-  max-height: var(--card-height);
-  border-radius: 10px;
-  opacity: 1;
-  object-fit: cover;
-}
+  &__img {
+    width: 100%;
+    max-height: $card-height;
+    border-radius: $card-border-radius;
+    opacity: 1;
+    object-fit: cover;
+  }
 
-.card:hover .hover-items {
-  opacity: 1;
+  &:hover .hover-items {
+    opacity: 1;
+  }
 }
 
 .hover-items {
+  opacity: 0;
+
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.1em;
+  gap: 0.2em;
+
   width: 100%;
   height: 100%;
-  opacity: 0;
-  border-radius: 10px;
+  padding: 0.5em;
+
+  border-radius: $card-border-radius;
   background-color: rgba(0, 0, 0, 0.49);
   transition: opacity 200ms ease-in-out;
+
+  &__title {
+    margin: auto auto 0.2em;
+    max-width: $card-height;
+
+    font-weight: 900;
+    font-size: 0.9em;
+    color: $white;
+    text-align: center;
+
+    /* cut too long titles */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__author {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 0.8em;
+    color: $white;
+  }
+
+  &__divider {
+    width: 25%;
+    height: 1.5px;
+    background-color: white;
+  }
+
+  &__favourite-btn {
+    margin: 1.5em auto 1em;
+    padding: 0.5em 1em;
+
+    font-size: 0.8em;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 1em;
+  }
+
+  &__favourite-btn:hover {
+    cursor: pointer;
+    background-color: $black;
+  }
+
+  &__favourite-btn--favourited {
+    &::after {
+      display: inline-block;
+      content: url("../public/heart.svg");
+      width: 0.75em;
+      height: 0.75em;
+      margin-left: 0.75em;
+    }
+  }
 }
 
-.hover-items__title {
-  margin: auto auto 0.2em;
-  font-weight: 900;
-  font-size: 0.9em;
-  max-width: 140px;
-
-  /* cut too long titles */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+// TODO
+.error-message {
+  z-index: 1;
+  background-color: aqua;
+  width: 100%;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
-.hover-items__author {
-  font-style: italic;
-  font-weight: 500;
-  font-size: 0.8em;
-}
+// Display for tablet
+@media (min-width: 600px) {
+  .scroll-container {
+    margin: 10px auto;
+  }
 
-.hover-items__divider {
-  width: 25%;
-  height: 1.5px;
-  background-color: white;
-}
-
-.hover-items__favourite-btn {
-  margin: 1.2em auto 1em;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 1em;
-  padding: 0.5em 1em;
-  font-size: 0.8em;
-}
-
-.hover-items__favourite-btn:hover {
-  cursor: pointer;
-  background-color: black;
-}
-
-.hover-items__favourite-btn--favourited {
-  background-color: rgb(255, 0, 89);
+  .card {
+    flex-basis: 45%;
+  }
 }

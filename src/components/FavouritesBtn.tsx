@@ -8,24 +8,24 @@ const FavouritesBtn: React.FC<Props> = ({ cardId }) => {
   const [favourite, setfavourite] = useState(false);
 
   useEffect(() => {
-    initialCheckIffavourited();
+    initialCheckIfFavourited();
   }, []);
 
-  const initialCheckIffavourited = () => {
-    // no favourites at all
+  const initialCheckIfFavourited = () => {
+    // no favourites in local storage at all
     if (!localStorage.favourites) {
       setfavourite(false);
       return;
     }
 
-    let favouritedItems = JSON.parse(localStorage.favourites);
+    let favouritedItems: number[] = JSON.parse(localStorage.favourites);
 
     // search among favourites
-    let favourited = favouritedItems.find(
+    let favourited: number | undefined = favouritedItems.find(
       (favouritedId: number) => favouritedId === cardId
     );
 
-    setfavourite(favourited);
+    setfavourite(!!favourited);
   };
 
   const favouriteClicked = () => {
@@ -35,7 +35,7 @@ const FavouritesBtn: React.FC<Props> = ({ cardId }) => {
       return;
     }
 
-    let favouritedItems = JSON.parse(localStorage.favourites);
+    let favouritedItems: number[] = JSON.parse(localStorage.favourites);
 
     // Remove from favourites
     if (favourite) {

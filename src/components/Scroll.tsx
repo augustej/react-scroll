@@ -17,6 +17,7 @@ const Scroll = () => {
   }, [isLoading]);
 
   useEffect(() => {
+    // get initial data from API
     fetchData();
   }, []);
 
@@ -24,7 +25,8 @@ const Scroll = () => {
     const alreadyScrolledHeight = document.documentElement.scrollTop;
     const totalDocumentHeight = document.documentElement.offsetHeight;
 
-    // if user hasn't reached bottom of the page, let him scroll
+    // continue only if user reached bottom of the page =>
+    // => and data is not yet being loaded
     if (
       isLoading ||
       window.innerHeight + alreadyScrolledHeight < totalDocumentHeight - 200 ||
@@ -43,12 +45,11 @@ const Scroll = () => {
   const fetchData = async () => {
     setError(null);
 
-    // TODO add pexels credentials
-    // display errors
     const requestOptions = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        // N.B. I would hide my authorization key in real app.
         Authorization:
           "YD8stZxsjBpOWNhmFbQ3oyZLC3n7qz448NFGELbmCAzbyTIPKLhTSeVQ",
       },
@@ -68,13 +69,6 @@ const Scroll = () => {
       const newData = await response.json();
 
       setPage(page + 1);
-
-      //   don't add first page items again
-      if (page === 1) {
-        setCards([...newData.photos]);
-        return;
-      }
-
       setCards([...cards, ...newData.photos]);
     } catch (error: any) {
       setError(error);
@@ -85,7 +79,7 @@ const Scroll = () => {
 
   function renderCards() {
     return (
-      <div className="cards-container">
+      <div className="scroll-container">
         {cards.map((card, index) => {
           return <Card key={index} card={card} />;
         })}
