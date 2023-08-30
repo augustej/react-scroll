@@ -14,14 +14,14 @@ const Scroll = () => {
     window.addEventListener("scroll", userScrolled);
     // before component if removed from DOM, clean up event listener
     return () => window.removeEventListener("scroll", userScrolled);
-  }, [isLoading]);
+  }, [isLoading, page]);
 
   useEffect(() => {
     // get initial data from API
-    fetchData();
+    fetchData(18);
   }, []);
 
-  async function userScrolled() {
+  function userScrolled() {
     const alreadyScrolledHeight = document.documentElement.scrollTop;
     const totalDocumentHeight = document.documentElement.offsetHeight;
 
@@ -38,11 +38,14 @@ const Scroll = () => {
     setIsLoading(true);
 
     // Once user at the bottom, load more images
-    await fetchData();
+    fetchData();
   }
 
   // function to fetch data from API
-  const fetchData = async () => {
+  const fetchData = async (numberPerPage?: number) => {
+    // allows to set more images on first load
+    if (!numberPerPage) numberPerPage = 9;
+
     setError(null);
 
     const requestOptions = {
@@ -57,7 +60,7 @@ const Scroll = () => {
 
     try {
       const response = await fetch(
-        `https://api.pexels.com/v1/curated?page=${page}&per_page=9`,
+        `https://api.pexels.com/v1/curated?page=${page}&per_page=${numberPerPage}`,
         requestOptions
       );
 
@@ -68,13 +71,30 @@ const Scroll = () => {
 
       const newData = await response.json();
 
-      setPage(page + 1);
-      setCards([...cards, ...newData.photos]);
+      // Pexels API has some duplicate cards
+      const newOriginalPhotos = removeDuplicates(newData.photos);
+
+      setPage(page + numberPerPage / 9);
+      setCards([...cards, ...newOriginalPhotos]);
     } catch (error: any) {
       setError(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const removeDuplicates = (newPhotos: CardInterface[]) => {
+    const originalPhotos = newPhotos.filter((newCard) => {
+      const cardIsFound: CardInterface | undefined = cards.find(
+        (existingCard) => {
+          return existingCard.id === newCard.id;
+        }
+      );
+
+      return cardIsFound ? false : true;
+    });
+
+    return originalPhotos;
   };
 
   function renderCards() {
@@ -94,10 +114,13 @@ const Scroll = () => {
   }
 
   return (
-    <div>
+    <>
       {renderErrors()}
+      <a href="https://www.pexels.com" className="link">
+        Photos provided by Pexels
+      </a>
       {renderCards()}
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,12 @@
 /* ========= Color variables =========== */
 $gray-light: rgb(221, 217, 217);
 $black: black;
+$black-bright: rgb(76, 74, 74);
 $pink: rgb(255, 0, 89);
 $pink-light: pink;
 $white: white;
+$red-bright: rgb(248, 174, 174);
+$red: rgb(237, 16, 16);
 
 /* ========= Other variables =========== */
 $card-height: 250px;
@@ -132,15 +135,40 @@ body {
   }
 }
 
-// TODO
+// show error in case there is a problem with data fetch
 .error-message {
-  z-index: 1;
-  background-color: aqua;
-  width: 100%;
-  height: 50px;
   position: sticky;
-  top: 0;
+  top: 0.5em;
   left: 0;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  margin: 0.75em;
+  padding: 1em;
+
+  border-radius: $card-border-radius;
+  border: 1px solid $red;
+  background-color: rgba($red-bright, 0.9);
+  color: $red;
+  font-size: 0.7em;
+}
+
+// link back to pexels page
+.link {
+  display: flex;
+  justify-content: center;
+  margin: 1.5em auto;
+  width: min-content;
+  white-space: nowrap;
+  color: $black;
+  font-style: italic;
+  font-size: 0.6em;
+  transition: color 200ms ease-in;
+
+  &:hover {
+    color: $black-bright;
+  }
 }
 
 // Display for tablet
