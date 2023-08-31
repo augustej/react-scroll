@@ -1,11 +1,14 @@
 import FavouritesBtn from "./FavouritesBtn";
 import CardInterface from "../interfaces/interfaces";
+import { useState } from "react";
 
 interface Props {
   card: CardInterface;
 }
 
 const Card: React.FC<Props> = ({ card }) => {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   return (
     <div className="card">
       {/* Items visible only on hover */}
@@ -25,8 +28,16 @@ const Card: React.FC<Props> = ({ card }) => {
         <FavouritesBtn cardId={card.id} />
       </div>
 
-      {/* Always visible image */}
-      <img className="card__img" src={card.src["medium"]} alt={card.alt} />
+      {/* Image */}
+      <div className="card__img-wrapper">
+        <img
+          className={`card__img ${imgLoaded ? "card__img--loaded" : ""}`}
+          src={card.src["medium"]}
+          alt={card.alt}
+          loading="lazy"
+          onLoad={() => setImgLoaded(true)}
+        />
+      </div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ const Scroll = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
+  const itemsPerPageDefaultNumber = 9;
 
   useEffect(() => {
     // listen for scroll event
@@ -29,7 +30,7 @@ const Scroll = () => {
     // => and data is not yet being loaded
     if (
       isLoading ||
-      window.innerHeight + alreadyScrolledHeight < totalDocumentHeight - 200 ||
+      window.innerHeight + alreadyScrolledHeight < totalDocumentHeight - 500 ||
       isLoading
     ) {
       return;
@@ -44,7 +45,7 @@ const Scroll = () => {
   // function to fetch data from API
   const fetchData = async (numberPerPage?: number) => {
     // allows to set more images on first load
-    if (!numberPerPage) numberPerPage = 9;
+    if (!numberPerPage) numberPerPage = itemsPerPageDefaultNumber;
 
     setError(null);
 
@@ -74,7 +75,7 @@ const Scroll = () => {
       // Pexels API has some duplicate cards
       const newOriginalPhotos = removeDuplicates(newData.photos);
 
-      setPage(page + numberPerPage / 9);
+      setPage(page + numberPerPage / itemsPerPageDefaultNumber);
       setCards([...cards, ...newOriginalPhotos]);
     } catch (error: any) {
       setError(error);

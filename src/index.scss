@@ -32,28 +32,42 @@ body {
 
 // container with all cards
 .scroll-container {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
-  max-width: 1440px;
 }
 
 // single card item
 .card {
+  margin: 0 auto;
   position: relative;
-  max-height: $card-height;
+  height: $card-height;
   width: 100%;
-  max-width: 375px;
+  max-width: 350px;
 
   &__img {
     width: 100%;
-    max-height: $card-height;
+    height: 100%;
     border-radius: $card-border-radius;
-    opacity: 1;
     object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+
+    // show img only once it is fully loaded
+    &--loaded {
+      opacity: 1;
+    }
+  }
+
+  // display gray background while image is being loaded
+  &__img-wrapper {
+    height: 100%;
+    background-color: rgba($black, 0.1);
+    border-radius: $card-border-radius;
   }
 
   &:hover .hover-items {
@@ -175,9 +189,15 @@ body {
 @media (min-width: 600px) {
   .scroll-container {
     margin: 10px auto;
+    max-width: 770px;
+    grid-template-columns: 1fr 1fr;
   }
+}
 
-  .card {
-    flex-basis: 45%;
+// Display for desktop
+@media (min-width: 1100px) {
+  .scroll-container {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1170px;
   }
 }
