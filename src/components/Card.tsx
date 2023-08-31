@@ -30,13 +30,18 @@ const Card: React.FC<Props> = ({ card }) => {
 
       {/* Image */}
       <div className="card__img-wrapper">
-        <img
-          className={`card__img ${imgLoaded ? "card__img--loaded" : ""}`}
-          src={card.src["medium"]}
-          alt={card.alt}
-          loading="lazy"
-          onLoad={() => setImgLoaded(true)}
-        />
+        <picture>
+          <source media="(max-width: 750px)" srcSet={card.src["large"]} />
+          <source media="(max-width: 1099px)" srcSet={card.src["large2x"]} />
+
+          <img
+            className={`card__img ${imgLoaded ? "card__img--loaded" : ""}`}
+            src={card.src["large"]}
+            alt={card.alt}
+            loading="lazy"
+            onLoad={() => setImgLoaded(true)}
+          />
+        </picture>
       </div>
     </div>
   );
