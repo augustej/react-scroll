@@ -58,6 +58,7 @@ const FavouritesBtn: React.FC<Props> = ({ cardId }) => {
 
   const createFavouritesInLocalStorage = (id: number) => {
     localStorage.favourites = JSON.stringify([id]);
+    setfavourite(true);
   };
 
   const addToFavourites = (id: number, favouritedItems: number[]) => {
