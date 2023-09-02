@@ -8,7 +8,7 @@ Follow these steps to set up and run the project on your local machine:
 
 1. Extract .zip file.
 
-2. Navigate to the project directory
+2. Navigate to the project directory.
 
 3. Install the required dependencies:
 
