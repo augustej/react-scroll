@@ -13,20 +13,21 @@ const Scroll = () => {
   useEffect(() => {
     // listen for scroll event
     window.addEventListener("scroll", userScrolled);
-    // before component if removed from DOM, clean up event listener
+    // clean up event listener
     return () => window.removeEventListener("scroll", userScrolled);
   }, [isLoading, page]);
 
   useEffect(() => {
     // get initial data from API
-    fetchData(18);
+    // get more images on first load by provding [numberPerPage]
+    fetchData(itemsPerPageDefaultNumber * 2);
   }, []);
 
   function userScrolled() {
     const alreadyScrolledHeight = document.documentElement.scrollTop;
     const totalDocumentHeight = document.documentElement.offsetHeight;
 
-    // continue only if user reached bottom of the page =>
+    // fetch data only if user reached (bottom of the document - 500px) =>
     // => and data is not yet being loaded
     if (
       isLoading ||
@@ -44,7 +45,7 @@ const Scroll = () => {
 
   // function to fetch data from API
   const fetchData = async (numberPerPage?: number) => {
-    // allows to set more images on first load
+    // determine how many items per page to load
     if (!numberPerPage) numberPerPage = itemsPerPageDefaultNumber;
 
     setError(null);
@@ -53,7 +54,7 @@ const Scroll = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // N.B. I would hide my authorization key in real app.
+        // N.B. I would hide my authorization key in the real app.
         Authorization:
           "YD8stZxsjBpOWNhmFbQ3oyZLC3n7qz448NFGELbmCAzbyTIPKLhTSeVQ",
       },
@@ -72,7 +73,7 @@ const Scroll = () => {
 
       const newData = await response.json();
 
-      // Pexels API has some duplicate cards
+      // Remove same photos from screen. Pexels API provides some duplicates.
       const newOriginalPhotos = removeDuplicates(newData.photos);
 
       setPage(page + numberPerPage / itemsPerPageDefaultNumber);
@@ -85,6 +86,7 @@ const Scroll = () => {
   };
 
   const removeDuplicates = (newPhotos: CardInterface[]) => {
+    // filter new data batch to remove photos that are already on the screen
     const originalPhotos = newPhotos.filter((newCard) => {
       const cardIsFound: CardInterface | undefined = cards.find(
         (existingCard) => {

@@ -2,8 +2,6 @@
 $gray-light: rgb(221, 217, 217);
 $black: black;
 $black-bright: rgb(76, 74, 74);
-$pink: rgb(255, 0, 89);
-$pink-light: pink;
 $white: white;
 $red-bright: rgb(248, 174, 174);
 $red: rgb(237, 16, 16);
@@ -74,6 +72,7 @@ body {
   }
 }
 
+// items that become visible when card is hovered
 .hover-items {
   opacity: 0;
 
@@ -148,6 +147,8 @@ body {
   }
 }
 
+/* ========= Error message style =========== */
+
 // show error in case there is a problem with data fetch
 .error-message {
   position: sticky;
@@ -167,6 +168,8 @@ body {
   font-size: 0.7em;
 }
 
+/* ========= Pexels link style =========== */
+
 // link back to pexels page
 .link {
   display: flex;
@@ -183,6 +186,8 @@ body {
     color: $black-bright;
   }
 }
+
+/* ========= MEDIA QUERIES =========== */
 
 // Display for tablet
 @media (min-width: 500px) {

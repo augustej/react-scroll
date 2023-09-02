@@ -37,7 +37,7 @@ const FavouritesBtn: React.FC<Props> = ({ cardId }) => {
 
     let favouritedItems: number[] = JSON.parse(localStorage.favourites);
 
-    // Remove from favourites
+    // Remove from favourites if user clicked on already favourited item
     if (favourite) {
       removeFromFavourites(cardId, favouritedItems);
       return;
