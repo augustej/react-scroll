@@ -1,4 +1,3 @@
-import "./App.scss";
 import Scroll from "./components/Scroll";
 
 function App() {
