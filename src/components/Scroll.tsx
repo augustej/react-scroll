@@ -54,9 +54,8 @@ const Scroll = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // N.B. I would hide my authorization key in the real app.
         Authorization:
-          "YD8stZxsjBpOWNhmFbQ3oyZLC3n7qz448NFGELbmCAzbyTIPKLhTSeVQ",
+        `${process.env.AUTHORIZATION_KEY}`
       },
     };
 
