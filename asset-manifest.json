@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/react-scroll/static/css/main.28a2e298.css",
+    "main.js": "/react-scroll/static/js/main.72795163.js",
+    "static/media/heart.svg": "/react-scroll/static/media/heart.f69af2bb7ca97135be04.svg",
+    "index.html": "/react-scroll/index.html",
+    "main.28a2e298.css.map": "/react-scroll/static/css/main.28a2e298.css.map",
+    "main.72795163.js.map": "/react-scroll/static/js/main.72795163.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.28a2e298.css",
+    "static/js/main.72795163.js"
+  ]
+}
