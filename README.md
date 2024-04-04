@@ -2,9 +2,12 @@
 
 This is a simple web application that allows users to browse items from the Pexels API and favorite them. The application features responsive design, infinite scroll, and the ability to save favorite items, which persist even after page reload.
 
-# React Infinite Scroll Web Application
-![Desktop Image](/public/screenshots/desktop-scrshot.png)
-![Mobile Image](/public/screenshots/mobile-scrshot.png)
+## React Infinite Scroll Web Application
+### Desktop image
+<img src="./public/screenshots/desktop-scrshot.png" alt="Desktop image" width="600">
+
+### Mobile image
+<img src="./public/screenshots/mobile-scrshot.png" alt="Mobile image" width="200">
 
 [See application live](https://augustej.github.io/react-scroll/)
 
